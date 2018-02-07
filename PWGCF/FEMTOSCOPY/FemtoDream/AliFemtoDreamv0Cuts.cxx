@@ -7,7 +7,6 @@
 
 #include "AliFemtoDreamv0Cuts.h"
 #include "TDatabasePDG.h"
-#include <iostream>
 ClassImp(AliFemtoDreamv0Cuts)
 AliFemtoDreamv0Cuts::AliFemtoDreamv0Cuts()
 :fHistList()
@@ -344,9 +343,9 @@ void AliFemtoDreamv0Cuts::BookMC(AliFemtoDreamv0 *v0) {
     } else {
       v0->SetParticleOrigin(AliFemtoDreamBasePart::kContamination);
     }
-//    if (fContribSplitting) {
-//      FillMCContributions(v0);
-//    }
+    if (fContribSplitting) {
+      FillMCContributions(v0);
+    }
   }
 }
 

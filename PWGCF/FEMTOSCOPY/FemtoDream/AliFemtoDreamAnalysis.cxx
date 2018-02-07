@@ -219,22 +219,22 @@ void AliFemtoDreamAnalysis::Make(AliAODEvent *evt) {
     if (fv0Cuts->isSelected(fFemtov0)) {
       Decays.push_back(*fFemtov0);
     }
-//    if (fAntiv0Cuts->isSelected(fFemtov0)) {
-//      AntiDecays.push_back(*fFemtov0);
-//    }
+    if (fAntiv0Cuts->isSelected(fFemtov0)) {
+      AntiDecays.push_back(*fFemtov0);
+    }
   }
-//  int numcascades = evt->GetNumberOfCascades();
-//  for (int iXi=0;iXi<numcascades;++iXi) {
-//    AliAODcascade *xi = evt->GetCascade(iXi);
-//    if (!xi) continue;
-//    fFemtoCasc->SetCascade(evt,xi);
-//    if (fCascCuts->isSelected(fFemtoCasc)) {
-//      //
-//    }
-//    if (fAntiCascCuts->isSelected(fFemtoCasc)) {
-//      //
-//    }
-//  }
+  int numcascades = evt->GetNumberOfCascades();
+  for (int iXi=0;iXi<numcascades;++iXi) {
+    AliAODcascade *xi = evt->GetCascade(iXi);
+    if (!xi) continue;
+    fFemtoCasc->SetCascade(evt,xi);
+    if (fCascCuts->isSelected(fFemtoCasc)) {
+      //
+    }
+    if (fAntiCascCuts->isSelected(fFemtoCasc)) {
+      //
+    }
+  }
 
   //  std::cout << "=============================" <<std::endl;
   //  std::cout << "=============================" <<std::endl;

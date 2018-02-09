@@ -89,6 +89,7 @@ AliFemtoDreamv0MCHist::AliFemtoDreamv0MCHist(
     fMCContPt->Sumw2();
     fMCContPt->GetXaxis()->SetTitle("p_{T}");
     fMCList->Add(fMCContPt);
+
     TString MCModes[4] = {"Primary","Secondary","Material","Contamination"};
     for (int i=0;i<4;++i) {
       fMCQAPlots[i] = new TList();
@@ -179,6 +180,7 @@ AliFemtoDreamv0MCHist::AliFemtoDreamv0MCHist(
     fMCPrimaryPt=0;
     fMCMaterialPt=0;
     fMCFeeddownWeakPt=0;
+    fMCContPt=0;
     for (int i=0;i<4;++i) {
       fMCQAPlots[i] = 0;
       fMCpTDist[i] = 0;

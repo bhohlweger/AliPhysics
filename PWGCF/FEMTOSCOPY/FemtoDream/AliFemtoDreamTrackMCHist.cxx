@@ -83,6 +83,7 @@ AliFemtoDreamTrackMCHist::AliFemtoDreamTrackMCHist(bool contribSplitting,bool DC
   fMCGenPt->GetXaxis()->SetTitle("p_{T}");
   fMCList->Add(fMCGenPt);
 
+
   if (contribSplitting) {
     fMCContPt=new TH1F("ContPt","ContPt",ptBins,ptmin,ptmax);
     fMCContPt->Sumw2();

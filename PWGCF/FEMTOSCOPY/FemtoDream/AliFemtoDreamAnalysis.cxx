@@ -49,8 +49,9 @@ void AliFemtoDreamAnalysis::Init(bool isMonteCarlo) {
   fFemtoTrack=new AliFemtoDreamTrack();
   fFemtoTrack->SetUseMCInfo(isMonteCarlo);
   fFemtov0=new AliFemtoDreamv0();
+  fFemtov0->SetPDGCode(fv0Cuts->GetPDGv0());
   fFemtov0->SetUseMCInfo(isMonteCarlo);
-  fFemtov0->SetPDGDaughterPos(fv0Cuts->GetPDGPosDaug());//order doesnt play a role
+  fFemtov0->SetPDGDaughterPos(fv0Cuts->GetPDGPosDaug());//order +sign doesnt play a role
   fFemtov0->GetPosDaughter()->SetUseMCInfo(isMonteCarlo);
   fFemtov0->SetPDGDaughterNeg(fv0Cuts->GetPDGNegDaug());//only used for MC Matching
   fFemtov0->GetNegDaughter()->SetUseMCInfo(isMonteCarlo);
@@ -216,12 +217,12 @@ void AliFemtoDreamAnalysis::Make(AliAODEvent *evt) {
   for (int iv0=0; iv0<entriesV0; iv0++) {
     AliAODv0 *v0 = evt->GetV0(iv0);
     fFemtov0->Setv0(evt, v0);
-//    if (fv0Cuts->isSelected(fFemtov0)) {
-//      Decays.push_back(*fFemtov0);
-//    }
-//    if (fAntiv0Cuts->isSelected(fFemtov0)) {
-//      AntiDecays.push_back(*fFemtov0);
-//    }
+    if (fv0Cuts->isSelected(fFemtov0)) {
+      Decays.push_back(*fFemtov0);
+    }
+    if (fAntiv0Cuts->isSelected(fFemtov0)) {
+      AntiDecays.push_back(*fFemtov0);
+    }
   }
 //  int numcascades = evt->GetNumberOfCascades();
 //  for (int iXi=0;iXi<numcascades;++iXi) {

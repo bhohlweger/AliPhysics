@@ -47,11 +47,20 @@ class AliFemtoDreamCascadeCuts {
     fcutv0MinDistVtx=true;fv0MinDistVtx=minDist;}
   void SetCutv0MinDaugDistToPrimVtx(double minDist){
     fcutv0DaugMinDistVtx=true;fv0DaugMinDistVtx=minDist;};
+  void SetPDGCodeCasc(int PDG){fPDGCasc=PDG;};
+  int GetPDGCodeCasc(){return fPDGCasc;};
+  void SetPDGCodePosDaug(int PDG){fPDGPosDaug=PDG;};
+  int GetPDGCodePosDaug(){return fPDGPosDaug;};
+  void SetPDGCodeNegDaug(int PDG){fPDGNegDaug=PDG;};
+  int GetPDGCodeNegDaug(){return fPDGNegDaug;};
+  void SetPDGCodeBach(int PDG){fPDGBachDaug=PDG;};
+  int GetPDGCodeBach(){return fPDGBachDaug;};
   TString ClassName()const{return "AliFemtoDreamCascadeCuts";};
   void Init();
   bool isSelected(AliFemtoDreamCascade *casc);
   void BookQA(AliFemtoDreamCascade *casc);
   void BookMCQA(AliFemtoDreamCascade *casc);
+  void FillMCContributions(AliFemtoDreamCascade *casc);
   TList *GetQAHists() {return fHistList;};
   TList *GetMCQAHists() {return fMCHistList;};
  private:
@@ -92,7 +101,10 @@ class AliFemtoDreamCascadeCuts {
   double fv0MinDistVtx;
   bool fcutv0DaugMinDistVtx;
   double fv0DaugMinDistVtx;
-
+  int fPDGCasc;
+  int fPDGPosDaug;
+  int fPDGNegDaug;
+  int fPDGBachDaug;
   ClassDef(AliFemtoDreamCascadeCuts,1)
 };
 

@@ -11,10 +11,14 @@
 ClassImp(AliFemtoDreamCascadeCuts)
 AliFemtoDreamCascadeCuts::AliFemtoDreamCascadeCuts()
 :fHist(0)
+,fMCHist(0)
 ,fNegCuts(0)
 ,fPosCuts(0)
 ,fBachCuts(0)
 ,fHistList(0)
+,fMCHistList(0)
+,fMCData(false)
+,fContribSplitting(false)
 ,fcutXiMass(false)
 ,fXiMass(0)
 ,fXiMassWidth(0)
@@ -58,8 +62,11 @@ AliFemtoDreamCascadeCuts::~AliFemtoDreamCascadeCuts() {
   }
 }
 
-AliFemtoDreamCascadeCuts* AliFemtoDreamCascadeCuts::XiCuts(bool isMC) {
+AliFemtoDreamCascadeCuts* AliFemtoDreamCascadeCuts::XiCuts(
+    bool isMC,bool contribSplitting) {
   AliFemtoDreamCascadeCuts *XiCuts=new AliFemtoDreamCascadeCuts();
+  XiCuts->SetIsMonteCarlo(isMC);
+  XiCuts->SetContributionSplitting(contribSplitting);
   XiCuts->SetXiMassRange(1.31486,0.05);
   XiCuts->SetCutXiDaughterDCA(1.6);
   XiCuts->SetCutXiMinDistBachToPrimVtx(0.05);
@@ -237,6 +244,22 @@ void AliFemtoDreamCascadeCuts::Init() {
   fHistList->Add(fPosCuts->GetQAHists());
   fBachCuts->SetName("BachelorCuts");
   fHistList->Add(fBachCuts->GetQAHists());
+
+  if (fMCData) {
+    fMCHist=new AliFemtoDreamv0MCHist(
+        500,0.9*fXiMass,1.3*fXiMass,fContribSplitting,false);
+    fMCHistList=new TList();
+    fMCHistList->SetOwner();
+    fMCHistList->SetName("CascadeMC");
+    fMCHistList->Add(fMCHist->GetHistList());
+
+    fNegCuts->SetMCName("NegCuts");
+    fMCHistList->Add(fNegCuts->GetMCQAHists());
+    fPosCuts->SetMCName("PosCuts");
+    fMCHistList->Add(fPosCuts->GetMCQAHists());
+    fBachCuts->SetMCName("BachCuts");
+    fMCHistList->Add(fBachCuts->GetMCQAHists());
+  }
 }
 
 void AliFemtoDreamCascadeCuts::BookQA(AliFemtoDreamCascade *casc) {
@@ -261,5 +284,10 @@ void AliFemtoDreamCascadeCuts::BookQA(AliFemtoDreamCascade *casc) {
   fNegCuts->BookQA(casc->GetNegDaug());
   fPosCuts->BookQA(casc->GetPosDaug());
   fBachCuts->BookQA(casc->GetBach());
+  return;
+}
+
+void AliFemtoDreamCascadeCuts::BookMCQA(AliFemtoDreamCascade *casc) {
+
   return;
 }

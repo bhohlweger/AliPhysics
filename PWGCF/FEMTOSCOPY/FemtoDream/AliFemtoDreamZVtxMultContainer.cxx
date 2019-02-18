@@ -96,14 +96,10 @@ void AliFemtoDreamZVtxMultContainer::PairParticlesSE(
         while (itPart2 != itSpec2->end()) {
           AliFemtoDreamBasePart part2 = *itPart2;
           // Delta eta - Delta phi* cut
-          std::cout << "Part 1: " << *itPDGPar1 << " Part 2: " << *itPDGPar2
-                                << std::endl;
           if (fDoDeltaEtaDeltaPhiCut && CPR) {
             if (!RejectClosePairs(part1, part2)) {
               ++itPart2;
               continue;
-            } else {
-              std::cout << "Not Rejected \n" ;
             }
           }
           RelativeK = RelativePairMomentum(itPart1->GetMomentum(), *itPDGPar1,
@@ -194,13 +190,9 @@ void AliFemtoDreamZVtxMultContainer::PairParticlesME(
               itPart2 != ParticlesOfEvent.end(); ++itPart2) {
             AliFemtoDreamBasePart part2 = *itPart2;
             // Delta eta - Delta phi* cut
-            std::cout << "Part 1: " << *itPDGPar1 << " Part 2: " << *itPDGPar2
-                      << std::endl;
             if (fDoDeltaEtaDeltaPhiCut && CPR) {
               if (!RejectClosePairs(part1, part2)) {
                 continue;
-              } else {
-                std::cout << "not rejected \n";
               }
             }
             RelativeK = RelativePairMomentum(itPart1->GetMomentum(), *itPDGPar1,
@@ -468,8 +460,8 @@ bool AliFemtoDreamZVtxMultContainer::RejectClosePairs(
           dphi += piHi * 2;
         }
         dphi = TVector2::Phi_mpi_pi(dphi);
-        std::cout << "iRad: " << iRad << std::endl;
         if (dphi * dphi + deta * deta < fDeltaPhiEtaMax) {
+          std::cout << "iRad: " << iRad << std::endl;
           outBool = false;
           std::cout << "nDaughter 1 " << nDaug1 << " nDaughter 2: " << nDaug2
               << std::endl;

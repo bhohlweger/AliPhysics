@@ -469,7 +469,7 @@ bool AliFemtoDreamZVtxMultContainer::RejectClosePairs(
         }
         dphi = TVector2::Phi_mpi_pi(dphi);
         std::cout << "iRad: " << iRad << std::endl;
-        if (dphi * dphi + deta * deta < fDeltaPhiEtaMax * fDeltaPhiEtaMax) {
+        if (dphi * dphi + deta * deta < fDeltaPhiEtaMax) {
           outBool = false;
           std::cout << "nDaughter 1 " << nDaug1 << " nDaughter 2: " << nDaug2
               << std::endl;

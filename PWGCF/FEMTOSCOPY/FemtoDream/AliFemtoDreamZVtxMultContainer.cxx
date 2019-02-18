@@ -439,11 +439,7 @@ bool AliFemtoDreamZVtxMultContainer::RejectClosePairs(
   // if nDaug == 1 => Single Track, else decay
   std::vector<float> eta1 = part1.GetEta();
   std::vector<float> eta2 = part2.GetEta();
-  std::cout << "nDaughter 1 " << nDaug1 << " nDaughter 2: " << nDaug2
-            << std::endl;
-  std::cout << "fDeltaPhiEtaMax: " << fDeltaPhiEtaMax << std::endl;
   for (unsigned int iDaug1 = 0; iDaug1 < nDaug1 && outBool; ++iDaug1) {
-    std::cout << "Daughter 1: " << iDaug1 << std::endl;
     std::vector<float> PhiAtRad1 = part1.GetPhiAtRaidius().at(iDaug1);
     float etaPar1;
     if (nDaug1 == 1) {
@@ -453,7 +449,6 @@ bool AliFemtoDreamZVtxMultContainer::RejectClosePairs(
     }
     for (unsigned int iDaug2 = 0;
         iDaug2 < part2.GetPhiAtRaidius().size() && outBool; ++iDaug2) {
-      std::cout << "Daughter 2: " << iDaug2 << std::endl;
       std::vector<float> phiAtRad2 = part2.GetPhiAtRaidius().at(iDaug2);
       float etaPar2;
       if (nDaug2 == 1) {
@@ -465,23 +460,27 @@ bool AliFemtoDreamZVtxMultContainer::RejectClosePairs(
       const int size =
           (PhiAtRad1.size() > phiAtRad2.size()) ?
               phiAtRad2.size() : PhiAtRad1.size();
-      std::cout << "etaPar1: " << etaPar1 << " etaPar2: " << etaPar2
-                << " deta: " << deta << std::endl;
       for (int iRad = 0; iRad < size; ++iRad) {
-        std::cout << "iRad: " << iRad << std::endl;
         float dphi = PhiAtRad1.at(iRad) - phiAtRad2.at(iRad);
-        std::cout << "dphi: " << dphi << std::endl;
         if (dphi > piHi) {
           dphi += -piHi * 2;
         } else if (dphi < -piHi) {
           dphi += piHi * 2;
         }
-        std::cout << "dphi: " << dphi << std::endl;
         dphi = TVector2::Phi_mpi_pi(dphi);
-        std::cout << "dphi * dphi + deta * deta: " << dphi * dphi + deta * deta
-                  << std::endl;
+        std::cout << "iRad: " << iRad << std::endl;
         if (dphi * dphi + deta * deta < fDeltaPhiEtaMax * fDeltaPhiEtaMax) {
           outBool = false;
+          std::cout << "nDaughter 1 " << nDaug1 << " nDaughter 2: " << nDaug2
+              << std::endl;
+          std::cout << "fDeltaPhiEtaMax: " << fDeltaPhiEtaMax << std::endl;
+          std::cout << "Daughter 1: " << iDaug1 << std::endl;
+          std::cout << "Daughter 2: " << iDaug2 << std::endl;
+          std::cout << "etaPar1: " << etaPar1 << " etaPar2: " << etaPar2
+              << " deta: " << deta << std::endl;
+          std::cout << "dphi: " << dphi << std::endl;
+          std::cout << "dphi * dphi + deta * deta: " << dphi * dphi + deta * deta
+              << std::endl;
           std::cout << "Rejected! \n";
           break;
         }

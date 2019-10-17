@@ -368,7 +368,7 @@ void AliNanoAODReplicator::FilterMC(const AliAODEvent& source)
     if (fMCParticleCuts) {
       pdgCodesV0Cascade =
           static_cast<AliAnalysisNanoAODMCParticleCuts*>(fMCParticleCuts)
-              ->GetKeepV0sCascades()();
+              ->GetKeepV0sCascades();
     }
     TIter nextCascade(fCascades);
     AliAODcascade* casc;
